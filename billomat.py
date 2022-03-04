@@ -1,11 +1,15 @@
+#remember to add your apy_key in a authentification.py file. 
+#change your Billomat id and offer_id
+
 import http.client
 import json, xmltodict
 from authentification import BILLOMAT_KEY
 
 api_key = BILLOMAT_KEY
 billomat_id = "sandboxedv"
-#getting client_id from offer_id: 
 offer_id = "1048814"
+
+#getting client_id from offer_id: 
 conn = http.client.HTTPSConnection(f"{billomat_id}.billomat.net")
 headers = { 'Content-Type': "application/json" }
 conn.request("GET", f"/api/offers/{offer_id}?api_key={api_key}")
@@ -21,8 +25,7 @@ conn.request("POST", f"/api/invoices?api_key={api_key}", payload, headers)
 # creates a new invoice while ignoring the details specified in offer
 
 #2. getting items from offer
-
-conn.request("GET", f"/api/offer-items?offer_id={offer_id}?api_key={api_key}")
+conn.request("GET", f"/api/offer_items?offer_id={offer_id}?api_key={api_key}")
 res = conn.getresponse()
 data = res.read()
 print(data.decode("utf-8"))
